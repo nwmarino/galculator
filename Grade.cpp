@@ -7,7 +7,7 @@ Grade::Grade(string tag, int value, double weighting)
 {   
     Grade::tag = tag;
     Grade::value = value;
-    Grade::weighting = weighting;
+    Grade::weighting = (weighting / 100);
 }
 
 double Grade::resolve()

@@ -45,23 +45,32 @@ int main()
     };
     cout << "CALCULATOR RESULTS\n";
     double grade = 0;
-    double total = 0;
+    double over = 0;
+    double weight = 0;
     while (not grades.empty())
     {
         Grade curr = grades.top();
         grade += curr.resolve();
-        total += curr.weighting;
+        over += curr.value;
+        weight += curr.weighting;
         grades.pop();
-        string formatted_str = format("T: {} | G: {} | W: {}", curr.tag, \
-        curr.value, curr.weighting);
+        string formatted_str = format("T: {} | G: {} | W: {}%", curr.tag, \
+        curr.value, (curr.weighting * 100));
         cout << formatted_str << '\n';
     };
-    cout << "Current grade: " << grade / total;
-    if (total <= 100)
+    cout << "Current grade: " << grade / weight << '\n';
+    if ((weight * 100) < 100)
     {
+        double remaining_weight = 1.0 - weight;
         double goal;
         cout << "Input the grade you want: ";
         cin >> goal;
+        double needed = (goal - grade) / (remaining_weight);
+        cout << '\n' << "Remaining components: " << (remaining_weight * 100) << "%\n";
+        cout << "Grade needed over remaining components: " << needed << '\n';
     }
-
+    else
+    {
+        cout << "Weightings exceed 100%. No goal can be set.";
+    };
 };
